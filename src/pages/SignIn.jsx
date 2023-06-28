@@ -67,18 +67,33 @@ export default function Login() {
 
     const currentDate = new Date();
 
-    const dataApi = {
-      idTurma: data.turma.id,
-      dataPresença: currentDate.toISOString(),
-      nrAula: 0,
-      presencas: [
-        {
-          externalId: data.externalId,
-          presente: true,
-          justificada: true,
-        },
-      ],
-    };
+    const dataApi = data.map((el) => {
+      return {
+        idTurma: el.turma.id,
+        dataPresença: currentDate.toISOString(),
+        nrAula: 0,
+        presencas: [
+          {
+            externalId: el.externalId,
+            presente: true,
+            justificada: true,
+          },
+        ],
+      };
+    });
+
+    // const dataApi = {
+    //   idTurma: data.turma.id,
+    //   dataPresença: currentDate.toISOString(),
+    //   nrAula: 0,
+    //   presencas: [
+    //     {
+    //       externalId: data.externalId,
+    //       presente: true,
+    //       justificada: true,
+    //     },
+    //   ],
+    // };
 
     console.log(dataApi);
 
