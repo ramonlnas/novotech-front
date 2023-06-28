@@ -67,28 +67,34 @@ export default function Login() {
 
     const currentDate = new Date();
 
-    const dataApi = data.map((el) => {
-      return {
-        idTurma: el.turma.id,
-        dataPresença: currentDate.toISOString(),
-        nrAula: 0,
-        presencas: [
-          {
-            externalId: el.externalId,
-            presente: true,
-            justificada: true,
-          },
-        ],
-      };
-    });
-
-
+    const dataApi = {
+      idTurma: "5436",
+      dataPresenca: "2023-06-12T11:50:48",
+      nrAula: 1,
+      presencas: [
+        {
+          externalId: "51207270857341149",
+          presente: true,
+          justificativa: false,
+        },
+        {
+          externalId: "51207270857341149",
+          presente: true,
+          justificativa: false,
+        },
+        {
+          externalId: "51207270857341149",
+          presente: true,
+          justificativa: false,
+        },
+      ],
+    };
     console.log(dataApi);
 
     axios
       .post(
         "https://www2.sgcpapi.homologacao.sp.gov.br/api/v1/Frequencia",
-        [dataApi],
+        dataApi,
         config
       )
       .then((res) => {
