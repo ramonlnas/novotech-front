@@ -82,18 +82,6 @@ export default function Login() {
       };
     });
 
-    // const dataApi = {
-    //   idTurma: data.turma.id,
-    //   dataPresença: currentDate.toISOString(),
-    //   nrAula: 0,
-    //   presencas: [
-    //     {
-    //       externalId: data.externalId,
-    //       presente: true,
-    //       justificada: true,
-    //     },
-    //   ],
-    // };
 
     console.log(dataApi);
 
