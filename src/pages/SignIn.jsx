@@ -26,7 +26,7 @@ export default function Login() {
       .then((res) => {
         console.log(res.data);
         setToken(res.data.token);
-        fetchData(res.data.token); // Chamar a função fetchData() passando o token
+        fetchData(res.data.token);
       })
       .catch((err) => {
         console.log(err);
@@ -48,8 +48,8 @@ export default function Login() {
       .then((res) => {
         console.log(res.data);
         console.log("Chegou aqui");
-        sendDataAPI(res.data.data);
-        setClassData(res.data.data);
+        sendDataAPI(res.data, token);
+        setClassData(res.data);
         console.log(res.data);
       })
       .catch((err) => {
@@ -57,8 +57,7 @@ export default function Login() {
       });
   }
 
-  function sendDataAPI(data) {
-    // const { dataMatricula, externalId, id, turma } = data;
+  function sendDataAPI(data, token) {
     console.log(data);
     const config = {
       headers: {
@@ -66,27 +65,28 @@ export default function Login() {
       },
     };
 
-    const dataApi = data.map((el) => {
-      return {
-        idTurma: el.dataMatricula,
-        dataPresenca: Date.now().toISOString(),
-        nrAula: 0,
-        presencas: [
-          {
-            externalId: el.externalId,
-            presente: true,
-            justificada: true,
-          },
-        ],
-      };
-    });
+    const currentDate = new Date();
 
+    const dataApi = {
+      idTurma: data.turma.id,
+      dataPresença: currentDate.toISOString(),
+      nrAula: 0,
+      presencas: [
+        {
+          externalId: data.externalId,
+          presente: true,
+          justificada: true,
+        },
+      ],
+    };
+
+    console.log(dataApi);
 
     axios
       .post(
         "https://www2.sgcpapi.homologacao.sp.gov.br/api/v1/Frequencia",
-        config,
-        dataApi
+        [dataApi],
+        config
       )
       .then((res) => {
         console.log(res.data);
@@ -100,7 +100,7 @@ export default function Login() {
 
   return (
     <Corpo>
-      <h1>NovoTech</h1>
+      <h1>NovoTec</h1>
 
       <DivLogin>
         <form onSubmit={fazerLogin}>
