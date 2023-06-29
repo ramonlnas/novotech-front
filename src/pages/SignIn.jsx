@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,8 +10,7 @@ export default function Login() {
   const [token, setToken] = useState("");
   const [classData, setClassData] = useState("");
   const Navigate = useNavigate();
-  //   const  {getToken, getName, getId} = useContext(AuthContext);
-  // const {getName} = useContext(AuthContext)
+  const { getClass, getClass2, getToken } = useContext(AuthContext);
 
   function fazerLogin(event) {
     event.preventDefault();
@@ -27,6 +27,8 @@ export default function Login() {
         console.log(res.data);
         setToken(res.data.token);
         fetchData(res.data.token);
+        fetchData2(res.data.token);
+        getToken(res.data.token);
       })
       .catch((err) => {
         console.log(err);
@@ -48,8 +50,9 @@ export default function Login() {
       .then((res) => {
         console.log(res.data);
         console.log("Chegou aqui");
-        sendDataAPI(res.data, token);
         setClassData(res.data);
+        getClass2(res.data);
+
         console.log(res.data);
       })
       .catch((err) => {
@@ -57,55 +60,59 @@ export default function Login() {
       });
   }
 
-  function sendDataAPI(data, token) {
-    console.log(data);
+  function fetchData2(token) {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
 
-    const currentDate = new Date();
-
-    const dataApi = {
-      idTurma: "5436",
-      dataPresenca: "2023-06-12T11:50:48",
-      nrAula: 1,
-      presencas: [
-        {
-          externalId: "51207270857341149",
-          presente: true,
-          justificativa: false,
-        },
-        {
-          externalId: "51207270857341149",
-          presente: true,
-          justificativa: false,
-        },
-        {
-          externalId: "51207270857341149",
-          presente: true,
-          justificativa: false,
-        },
-      ],
-    };
-    console.log(dataApi);
-
     axios
-      .post(
-        "https://www2.sgcpapi.homologacao.sp.gov.br/api/v1/Frequencia",
-        dataApi,
+      .get(
+        "https://www2.sgcpapi.homologacao.sp.gov.br/api/v1/Matricula/Turma/5474",
         config
       )
       .then((res) => {
         console.log(res.data);
-        console.log("Chegou aqui no Post");
-        console.log(dataApi);
+        console.log("Chegou aqui");
+        // sendDataAPI(res.data, token);
+        setClassData(res.data);
+        getClass(res.data);
+        Navigate("/home");
+
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  // function sendDataAPI(data, token) {
+  //   console.log(data);
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+
+  //   const currentDate = new Date();
+
+  //   console.log(dataApi);
+
+  //   axios
+  //     .post(
+  //       "https://www2.sgcpapi.homologacao.sp.gov.br/api/v1/Frequencia",
+  //       dataApi,
+  //       config
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       console.log("Chegou aqui no Post");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   return (
     <Corpo>

@@ -1,24 +1,29 @@
 import { createContext, useState } from "react";
 
+export const AuthContext = createContext();
 
-export const AuthContext = createContext()
+export function AuthContextProvider({ children }) {
+  const [classInfo, setClassInfo] = useState("");
+  const [classInfo2, setClassInfo2] = useState("")
+  const [tokenContext, setTokenContext] = useState("")
 
-export function AuthContextProvider({children}) {
-    
-    const [token, setToken] = useState("")
+  function getClass(Class) {
+    setClassInfo(Class);
+    console.log(classInfo, "Chegou o context");
+  }
 
-    function getToken(Token) {
-        setToken(Token)
-        console.log(token)
-    }
+  function getClass2(Class2) {
+    setClassInfo2(Class2)
+  }
 
-    
+  function getToken(Token) {
+    setTokenContext(Token)
+    console.log(tokenContext)
+  }
 
-    return (
-        <AuthContext.Provider
-            value={{getToken, token}}
-        >
-            {children}
-        </AuthContext.Provider>
-    )
+  return (
+    <AuthContext.Provider value={{ getClass, classInfo, getClass2, classInfo2, getToken, tokenContext }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
