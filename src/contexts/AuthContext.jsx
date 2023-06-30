@@ -9,7 +9,6 @@ export function AuthContextProvider({ children }) {
 
   function getClass(Class) {
     setClassInfo(Class);
-    console.log(classInfo, "Chegou o context");
   }
 
   function getClass2(Class2) {

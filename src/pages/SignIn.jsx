@@ -24,7 +24,7 @@ export default function Login() {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setToken(res.data.token);
         fetchData(res.data.token);
         fetchData2(res.data.token);
@@ -48,8 +48,6 @@ export default function Login() {
         config
       )
       .then((res) => {
-        console.log(res.data);
-        console.log("Chegou aqui");
         setClassData(res.data);
         getClass2(res.data);
 
@@ -74,7 +72,7 @@ export default function Login() {
       )
       .then((res) => {
         console.log(res.data);
-        console.log("Chegou aqui");
+        // console.log("Chegou aqui");
         // sendDataAPI(res.data, token);
         setClassData(res.data);
         getClass(res.data);

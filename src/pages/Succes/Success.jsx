@@ -14,13 +14,14 @@ export default function Success() {
   return (
     <Corpo>
       <Header>
-        <h1>Home</h1>
+        <h1>Sucesso!!</h1>
         <Link to={"/"}>
           <ion-icon name="log-out-outline"></ion-icon>
         </Link>
       </Header>
       <Content>
         <Infos>
+          
         </Infos>
         <Infos>
         </Infos>

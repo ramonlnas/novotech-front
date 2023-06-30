@@ -18,8 +18,8 @@ import { dataTurma1, dataTurma2 } from "../../utils";
 
 export default function Home() {
   const { classInfo, classInfo2, tokenContext } = useContext(AuthContext);
-  console.log(classInfo, "Info na Home");
-  console.log(classInfo2, "Info2 na Home");
+  console.log(classInfo, "Info");
+  console.log(classInfo2, "Info2");
 
   const [checked5474, setChecked5474] = useState(false);
   const [checked5436, setChecked5436] = useState(false);
@@ -40,12 +40,6 @@ export default function Home() {
     };
 
     if (checked5436) {
-      const data5474 = {
-        idTurma: "5436",
-        dataPresenca: "2023-06-12T11:50:48",
-        nrAula: 1,
-      };
-
       axios
         .post(
           "https://www2.sgcpapi.homologacao.sp.gov.br/api/v1/Frequencia",
@@ -53,7 +47,7 @@ export default function Home() {
           config
         )
         .then((res) => {
-          console.log(res.data, "CHEGOUUUU a turma 5432");
+          console.log(res.data, "Chegou a turma 5436");
         })
         .catch((error) => {
           console.log(error);
@@ -68,7 +62,7 @@ export default function Home() {
           config
         )
         .then((res) => {
-          console.log(res.data, "CHEGOUUUU a turma 5474");
+          console.log(res.data, "Chegou a turma 5474");
         })
         .catch((error) => {
           console.log(error);
